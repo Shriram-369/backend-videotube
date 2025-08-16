@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken"          //password encryption
-import bcrypt from "brycpt"             //password encryption
+import bcrypt from "bcrypt"          //password encryption
 
 const userSchema = new Schema(
     {
@@ -26,7 +26,7 @@ const userSchema = new Schema(
             index: true
         },
         avatar: {
-            type: String,//cloudnary url
+            type: String,   //cloudnary url
             required: true,
         },
         coverImage: {
@@ -43,7 +43,7 @@ const userSchema = new Schema(
             required: [true, "Password is required"]
         },
         refreshToken: {
-            type: Strin
+            type: String
         }
     },
     { timestamps: true }
