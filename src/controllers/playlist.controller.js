@@ -102,13 +102,65 @@ const getPlaylistById = asyncHandler(async (req, res) => {
 
 const addVideoToPlaylist = asyncHandler(async (req, res) => {
     const { playlistId, videoId } = req.params
+
+    if (!playlistId || !videoId) {
+        throw new ApiError(400, "Both fields are required")
+    }
+
+    const addVideo = await Playlist.findByIdAndUpdate(
+        playlistId,
+        {
+            $addToSet: {
+                videos: videoId
+            },
+        },
+        { new: true }
+    )
+
+    // if (addVideo.videos.includes(videoId)) {
+    //     throw new ApiError(400, "Video exists in playlist")
+    // }
+
+    if (!addVideo) {
+        throw new ApiError(400, "failed operation")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, addVideo,"Video added in playlist")
+    )
 })
+
 
 const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
     const { playlistId, videoId } = req.params
-    // TODO: remove video from playlist
+    
+    if (!playlistId || !videoId) {
+        throw new ApiError(400, "Both fields are required")
+    }
 
+    const removeVideo = await Playlist.findByIdAndUpdate(
+        playlistId,
+        {
+            $pull: {
+                videos: videoId
+            },
+        },
+        { new: true }
+    )
+
+    if (!removeVideo) {
+        throw new ApiError(400, "failed operation")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, removeVideo,"Video removed from playlist")
+    )
 })
+
 
 const deletePlaylist = asyncHandler(async (req, res) => {
     const { playlistId } = req.params
