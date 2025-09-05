@@ -25,10 +25,13 @@ router.route("/publish-video").post(
             maxCount: 1
         }
     ]),
-    verifyJWT,publishAVideo
+    verifyJWT, publishAVideo
 )
 
-router.route("/:videoId").get(verifyJWT,getVideoById)
+router.route("/:videoId")
+    .get(verifyJWT, getVideoById)
+    .patch(upload.single("thumbnail"), updateVideo)
+
 
 
 
