@@ -31,6 +31,7 @@ router.route("/publish-video").post(
 router.route("/:videoId")
     .get(verifyJWT, getVideoById)
     .patch(upload.single("thumbnail"), updateVideo)
+    .delete(deleteVideo)
 
 
 
