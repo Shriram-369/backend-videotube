@@ -19,10 +19,12 @@ app.use(coockieParser())
 import userRouter from "./routes/user.routes.js"
 import playlistRouter from "./routes/playlist.routes.js"
 import videoRouter from "./routes/video.routes.js"
+import commentRouter from "./routes/comment.routes.js"
 
 //routes declaration
 app.use("/api/v1/users",userRouter)   //https://localhost:8000/api/v1/users/register
 app.use("/api/v1/playlist", playlistRouter)
 app.use("/api/v1/video", videoRouter)
+app.use("/api/v1/comment", commentRouter)
 
 export { app }
