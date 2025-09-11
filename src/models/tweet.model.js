@@ -8,7 +8,7 @@ const tweetSchema = new mongoose.Schema({
     },
     owner: {
         type: Schema.Types.ObjectId,
-        ref: "Owner"
+        ref: "User"
     },
 
 },
